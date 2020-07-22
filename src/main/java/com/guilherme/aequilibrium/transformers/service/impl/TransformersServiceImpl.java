@@ -41,7 +41,7 @@ public class TransformersServiceImpl implements TransformersService {
 
     @Override
     public void deleteTransformer(Long id) {
-	log.info("delet Transformer id: " + id);
+	log.info("delete Transformer id: " + id);
 	transformersRepository.deleteById(id);
     }
 
