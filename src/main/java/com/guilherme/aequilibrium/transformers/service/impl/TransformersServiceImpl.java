@@ -30,7 +30,7 @@ public class TransformersServiceImpl implements TransformersService {
     @Override
     public TransformerDTO updateTransformer(TransformerDTO transformer) {
 	log.info("update Transformer");
-	return null;
+	return this.convertTransformerDto(transformersRepository.save(this.convertEntity(transformer)));
     }
 
     @Override

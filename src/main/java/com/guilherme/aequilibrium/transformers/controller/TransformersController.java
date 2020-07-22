@@ -26,18 +26,19 @@ public class TransformersController {
     private TransformersService transformersService;
 
     @PostMapping
-    public TransformerDTO createTransformer(@RequestBody(required = true) TransformerDTO transformerDto) {
+    public ResponseEntity<TransformerDTO> createTransformer(
+	    @RequestBody(required = true) TransformerDTO transformerDto) {
 
-	return transformersService.createTransformer(transformerDto);
+	return new ResponseEntity<>(transformersService.createTransformer(transformerDto), HttpStatus.OK);
     }
 
     @PutMapping
-    public void updateTransformer() {
-
+    public void updateTransformer(@RequestBody(required = true) TransformerDTO transformerDto) {
+	transformersService.updateTransformer(transformerDto);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Long> deleteTransformer(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteTransformer(@PathVariable(required = true) Long id) {
 	try {
 	    transformersService.deleteTransformer(id);
 	} catch (IllegalArgumentException e) {
@@ -50,9 +51,12 @@ public class TransformersController {
     }
 
     @GetMapping
-    public List<TransformerDTO> getTransformers() {
+    public ResponseEntity<List<TransformerDTO>> getTransformers() {
 
-	return transformersService.getTransformers();
+	List<TransformerDTO> response = transformersService.getTransformers();
+
+	return !response.isEmpty() ? new ResponseEntity<>(transformersService.getTransformers(), HttpStatus.OK)
+		: new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
