@@ -1,5 +1,7 @@
 package com.guilherme.aequilibrium.transformers.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.guilherme.aequilibrium.transformers.model.dto.TransformerDTO;
 import com.guilherme.aequilibrium.transformers.service.TransformersService;
 
 @RestController
@@ -33,8 +36,9 @@ public class TransformersController {
     }
 
     @GetMapping
-    public void getTransformers() {
+    public List<TransformerDTO> getTransformers() {
 
+	return transformersService.getTransformers();
     }
 
 }
