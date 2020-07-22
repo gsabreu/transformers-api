@@ -36,8 +36,7 @@ public class TransformersServiceImpl implements TransformersService {
     @Override
     public void deleteTransformer(Long id) {
 	log.info("delet Transformer id: " + id);
-	// TODO Auto-generated method stub
-
+	transformersRepository.deleteById(id);
     }
 
     @Override
