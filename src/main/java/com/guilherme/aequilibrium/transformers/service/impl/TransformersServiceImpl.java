@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.guilherme.aequilibrium.transformers.handler.TransformersNotFoundException;
 import com.guilherme.aequilibrium.transformers.model.TransformerEntity;
 import com.guilherme.aequilibrium.transformers.model.dto.TransformerDTO;
 import com.guilherme.aequilibrium.transformers.repository.TransformersRepository;
@@ -30,6 +31,11 @@ public class TransformersServiceImpl implements TransformersService {
     @Override
     public TransformerDTO updateTransformer(TransformerDTO transformer) {
 	log.info("update Transformer");
+
+	if (!transformersRepository.existsById(transformer.getId())) {
+	    throw new TransformersNotFoundException(transformer.getId());
+	}
+
 	return this.convertTransformerDto(transformersRepository.save(this.convertEntity(transformer)));
     }
 
