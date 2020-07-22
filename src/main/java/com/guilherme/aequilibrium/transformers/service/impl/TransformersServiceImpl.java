@@ -24,8 +24,7 @@ public class TransformersServiceImpl implements TransformersService {
     @Override
     public TransformerDTO createTransformer(TransformerDTO transformer) {
 	log.info("creating Transformer");
-
-	return null;
+	return this.convertTransformerDto(transformersRepository.save(this.convertEntity(transformer)));
     }
 
     @Override
@@ -51,6 +50,10 @@ public class TransformersServiceImpl implements TransformersService {
 
     private TransformerDTO convertTransformerDto(TransformerEntity entity) {
 	return new ObjectMapper().convertValue(entity, TransformerDTO.class);
+    }
+
+    private TransformerEntity convertEntity(TransformerDTO dto) {
+	return new ObjectMapper().convertValue(dto, TransformerEntity.class);
     }
 
 }
