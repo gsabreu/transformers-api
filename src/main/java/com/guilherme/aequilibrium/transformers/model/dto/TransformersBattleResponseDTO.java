@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @Data
 @JsonInclude(Include.NON_EMPTY)
-public class TransformersBattleDTO {
+public class TransformersBattleResponseDTO {
 
     private Integer numberOfBattles;
     private String winnerTeam;

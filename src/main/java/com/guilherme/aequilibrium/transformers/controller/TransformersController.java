@@ -19,7 +19,7 @@ import com.guilherme.aequilibrium.transformers.model.dto.TransformerDTO;
 import com.guilherme.aequilibrium.transformers.service.TransformersService;
 
 @RestController
-@RequestMapping(path = "/v1/transformers")
+@RequestMapping
 public class TransformersController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class TransformersController {
     public ResponseEntity<TransformerDTO> createTransformer(
 	    @RequestBody(required = true) TransformerDTO transformerDto) {
 
-	return new ResponseEntity<>(transformersService.createTransformer(transformerDto), HttpStatus.OK);
+	return new ResponseEntity<>(transformersService.createTransformer(transformerDto), HttpStatus.CREATED);
     }
 
     @PutMapping
