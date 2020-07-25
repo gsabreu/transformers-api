@@ -15,50 +15,55 @@ import com.guilherme.aequilibrium.transformers.service.BattleBasicRulesService;
 @Service
 public class BattleBasicRulesServiceImpl implements BattleBasicRulesService {
 
+    private Integer numberOfBattles;
+    private Integer autobotsWins;
+    private Integer decepticonsWins;
+
     @Override
     public TransformersBattleResponseDTO applyRules(List<TransformerEntity> transformers) {
 	List<TransformerEntity> autobots = this.sliptTeamByType(transformers, Team.AUTOBOTS);
-	List<TransformerEntity> decepticons = this.sliptTeamByType(transformers,Team.DECEPTICONS);
+	List<TransformerEntity> decepticons = this.sliptTeamByType(transformers, Team.DECEPTICONS);
 	List<String> losingTeamSurvivors = new ArrayList<>();
 
 	this.sortTeamByRank(autobots);
 	this.sortTeamByRank(decepticons);
 
-	Integer numberOfBattles = 0;
-	Integer autobotsWins = 0;
-	Integer decepticonsWins = 0;
-	int i = 0;
+	numberOfBattles = 0;
+	autobotsWins = 0;
+	decepticonsWins = 0;
 
 	if (autobots.size() > decepticons.size()) {
-	    while (i <= autobots.size()) {
-
+	    for (int i = 0; i < decepticons.size(); i++) {
+		for (int j = 0; j < autobots.size(); j++) {
+		    this.oneOnOneFight(autobots.get(i), decepticons.get(i));
+		    i++;
+		}
 	    }
 	}
+	
 	return TransformersBattleResponseDTO
 		.builder()
 		.numberOfBattles(numberOfBattles)
-		.winnerTeam(this.getWinningTeam(autobotsWins, decepticonsWins))
-		.losingTeamSurvivors(losingTeamSurvivors)
+		.winnerTeam(this.getWinningTeam())
+		.losingTeamSurvivors(losingTeamSurvivors.isEmpty() ? null: losingTeamSurvivors)
 		.build();
     }
 
-    private void startBattle(TransformerEntity autobot, TransformerEntity decepticon, Integer numberOfBattles,
-	    Integer autobotsWins, Integer decepticonsWins) {
-	if (this.runAwayOpponent(autobot, decepticon, autobotsWins, decepticonsWins)) {
+    private void oneOnOneFight(TransformerEntity autobot, TransformerEntity decepticon) {
+	if (this.hasRunAwayOpponent(autobot, decepticon)) {
 	    numberOfBattles++;
 	    return;
-	} else if (this.winnerSkill(autobot, decepticon, autobotsWins, decepticonsWins)) {
+	} else if (this.hasSkillWinner(autobot, decepticon)) {
 	    numberOfBattles++;
 	    return;
-	} else if (this.overallRateWinner(autobot, decepticon, autobotsWins, decepticonsWins)) {
+	} else if (this.hasOverallRateWinner(autobot, decepticon)) {
 	    numberOfBattles++;
 	    return;
 	}
 
     }
 
-    private Boolean runAwayOpponent(TransformerEntity autobot, TransformerEntity decepticon, Integer autobotsWins,
-	    Integer decepticonsWins) {
+    private Boolean hasRunAwayOpponent(TransformerEntity autobot, TransformerEntity decepticon) {
 	if (autobot.getCourage() - decepticon.getCourage() >= 4
 		|| autobot.getStrength() - decepticon.getStrength() >= 3) {
 	    autobotsWins++;
@@ -71,8 +76,7 @@ public class BattleBasicRulesServiceImpl implements BattleBasicRulesService {
 	return false;
     }
 
-    private Boolean winnerSkill(TransformerEntity autobot, TransformerEntity decepticon, Integer autobotsWins,
-	    Integer decepticonsWins) {
+    private Boolean hasSkillWinner(TransformerEntity autobot, TransformerEntity decepticon) {
 	if (autobot.getSkill() - decepticon.getSkill() >= 3) {
 	    autobotsWins++;
 	    return true;
@@ -83,8 +87,7 @@ public class BattleBasicRulesServiceImpl implements BattleBasicRulesService {
 	return false;
     }
 
-    private Boolean overallRateWinner(TransformerEntity autobot, TransformerEntity decepticon, Integer autobotsWins,
-	    Integer decepticonsWins) {
+    private Boolean hasOverallRateWinner(TransformerEntity autobot, TransformerEntity decepticon) {
 	Integer autoBotOverallRate = this.getOverallRating(autobot);
 	Integer decepticonOverrallRate = this.getOverallRating(decepticon);
 
@@ -95,10 +98,12 @@ public class BattleBasicRulesServiceImpl implements BattleBasicRulesService {
 	    decepticonsWins++;
 	    return true;
 	}
-	return false;
+	autobotsWins++;
+	decepticonsWins++;
+	return true;
     }
 
-    private String getWinningTeam(Integer autobotsWins, Integer decepticonsWins) {
+    private String getWinningTeam() {
 	if (autobotsWins > decepticonsWins) {
 	    return Team.AUTOBOTS.name;
 	} else if (autobotsWins < decepticonsWins) {
