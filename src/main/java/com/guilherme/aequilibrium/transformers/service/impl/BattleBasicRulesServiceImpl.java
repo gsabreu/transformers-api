@@ -1,4 +1,4 @@
-package com.guilherme.aequilibrium.transformers.service;
+package com.guilherme.aequilibrium.transformers.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.guilherme.aequilibrium.transformers.model.TransformerEntity;
-import com.guilherme.aequilibrium.transformers.service.impl.TransfomersBasicRulesService;
+import com.guilherme.aequilibrium.transformers.service.BattleBasicRulesService;
 
 @Service
-public class TransfomersBasicRulesServiceImpl implements TransfomersBasicRulesService {
+public class BattleBasicRulesServiceImpl implements BattleBasicRulesService {
 
     @Override
     public List<TransformerEntity> sliptTeamByType(List<TransformerEntity> transformers, String type) {

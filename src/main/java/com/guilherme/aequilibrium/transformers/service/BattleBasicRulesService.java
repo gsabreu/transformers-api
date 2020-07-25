@@ -1,11 +1,11 @@
 
-package com.guilherme.aequilibrium.transformers.service.impl;
+package com.guilherme.aequilibrium.transformers.service;
 
 import java.util.List;
 
 import com.guilherme.aequilibrium.transformers.model.TransformerEntity;
 
-public interface TransfomersBasicRulesService {
+public interface BattleBasicRulesService {
 
     List<TransformerEntity> sliptTeamByType(List<TransformerEntity> transformers, String type);
 
