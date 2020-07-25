@@ -25,14 +25,14 @@ public class TransformersBattleServiceImpl implements TransformersBattleService 
     private BattleBasicRulesService battleBasicRulesService;
 
     @Override
-    public TransformersBattleResponseDTO getTransfomersWinnerFromTheBattle(List<Long> transformersIds) {
+    public TransformersBattleResponseDTO getTeamWinner(List<Long> transformersIds) {
 	List<TransformerEntity> transformers = transformersRepository.findAllById(transformersIds);
 	TransformersBattleResponseDTO transformersBattleResponseDTO = null;
 
-	if (transformers != null && !transformers.isEmpty()) {
+	if (!transformers.isEmpty()) {
 	    transformersBattleResponseDTO = battleSpecialRulesService.applyRules(transformers);
 
-	    if (transformersBattleResponseDTO != null) {
+	    if (transformersBattleResponseDTO == null) {
 		transformersBattleResponseDTO = battleBasicRulesService.applyRules(transformers);
 	    }
 	}

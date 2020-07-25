@@ -5,7 +5,7 @@ import com.guilherme.aequilibrium.transformers.handler.TeamNotFoundException;
 public enum Team {
 
     AUTOBOTS("A", "Autobots"),
-    DECEPTICONS("D", "Decepticons");// 15
+    DECEPTICONS("D", "Decepticons");
 
     public final String acronym;
     public final String name;

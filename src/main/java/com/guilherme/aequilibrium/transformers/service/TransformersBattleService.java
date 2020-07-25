@@ -6,6 +6,6 @@ import com.guilherme.aequilibrium.transformers.model.dto.TransformersBattleRespo
 
 public interface TransformersBattleService {
 
-    TransformersBattleResponseDTO getTransfomersWinnerFromTheBattle(List<Long> transformersIds);
+    TransformersBattleResponseDTO getTeamWinner(List<Long> transformersIds);
 
 }
