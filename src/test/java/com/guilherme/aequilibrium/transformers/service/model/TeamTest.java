@@ -14,17 +14,17 @@ public class TeamTest {
 
     @Test
     public void should_return_autobots_if_value_is_A_when_getValue() {
-	assertThat(Team.getValue("A")).isEqualTo(Team.AUTOBOTS);
+	assertThat(Team.getByAcronym("A")).isEqualTo(Team.AUTOBOTS);
     }
 
     @Test
     public void should_return_decepticons_if_value_is_D_when_getValue() {
-	assertThat(Team.getValue("D")).isEqualTo(Team.DECEPTICONS);
+	assertThat(Team.getByAcronym("D")).isEqualTo(Team.DECEPTICONS);
     }
 
     @Test(expected = TeamNotFoundException.class)
     public void should_return_exception_if_value_is_C_when_getValue() {
-	Team.getValue("C");
+	Team.getByAcronym("C");
     }
 
 }

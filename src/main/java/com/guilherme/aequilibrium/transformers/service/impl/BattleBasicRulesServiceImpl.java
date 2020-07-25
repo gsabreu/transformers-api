@@ -23,29 +23,28 @@ public class BattleBasicRulesServiceImpl implements BattleBasicRulesService {
     public TransformersBattleResponseDTO applyRules(List<TransformerEntity> transformers) {
 	List<TransformerEntity> autobots = this.sliptTeamByType(transformers, Team.AUTOBOTS);
 	List<TransformerEntity> decepticons = this.sliptTeamByType(transformers, Team.DECEPTICONS);
-	List<String> losingTeamSurvivors = new ArrayList<>();
 
 	this.sortTeamByRank(autobots);
 	this.sortTeamByRank(decepticons);
+
+	List<TransformerEntity> nonFightList = this.removeFighters(autobots, decepticons);
 
 	numberOfBattles = 0;
 	autobotsWins = 0;
 	decepticonsWins = 0;
 
-	if (autobots.size() > decepticons.size()) {
-	    for (int i = 0; i < decepticons.size(); i++) {
-		for (int j = 0; j < autobots.size(); j++) {
-		    this.oneOnOneFight(autobots.get(i), decepticons.get(i));
-		    i++;
-		}
+	for (int i = 0; i < decepticons.size(); i++) {
+	    for (int j = 0; j < autobots.size(); j++) {
+		this.oneOnOneFight(autobots.get(i), decepticons.get(i));
+		i++;
 	    }
 	}
-	
-	return TransformersBattleResponseDTO
-		.builder()
-		.numberOfBattles(numberOfBattles)
-		.winnerTeam(this.getWinningTeam())
-		.losingTeamSurvivors(losingTeamSurvivors.isEmpty() ? null: losingTeamSurvivors)
+
+	String winnerTeam = this.getWinningTeam();
+
+	return TransformersBattleResponseDTO.builder().numberOfBattles(numberOfBattles).winnerTeam(winnerTeam)
+		.losingTeamSurvivors(
+			nonFightList.isEmpty() ? null : this.getLosingTeamSurvivors(nonFightList, winnerTeam))
 		.build();
     }
 
@@ -56,9 +55,9 @@ public class BattleBasicRulesServiceImpl implements BattleBasicRulesService {
 	} else if (this.hasSkillWinner(autobot, decepticon)) {
 	    numberOfBattles++;
 	    return;
-	} else if (this.hasOverallRateWinner(autobot, decepticon)) {
+	} else {
+	    this.getOverallRateWinner(autobot, decepticon);
 	    numberOfBattles++;
-	    return;
 	}
 
     }
@@ -87,20 +86,19 @@ public class BattleBasicRulesServiceImpl implements BattleBasicRulesService {
 	return false;
     }
 
-    private Boolean hasOverallRateWinner(TransformerEntity autobot, TransformerEntity decepticon) {
+    private void getOverallRateWinner(TransformerEntity autobot, TransformerEntity decepticon) {
 	Integer autoBotOverallRate = this.getOverallRating(autobot);
 	Integer decepticonOverrallRate = this.getOverallRating(decepticon);
 
 	if (autoBotOverallRate > decepticonOverrallRate) {
 	    autobotsWins++;
-	    return true;
 	} else if (autoBotOverallRate < decepticonOverrallRate) {
 	    decepticonsWins++;
-	    return true;
+	} else {
+	    autobotsWins++;
+	    decepticonsWins++;
 	}
-	autobotsWins++;
-	decepticonsWins++;
-	return true;
+
     }
 
     private String getWinningTeam() {
@@ -118,7 +116,7 @@ public class BattleBasicRulesServiceImpl implements BattleBasicRulesService {
     }
 
     private void sortTeamByRank(List<TransformerEntity> transformers) {
-	transformers.sort(Comparator.comparingInt(this::getTransformerRank));
+	transformers.sort(Comparator.comparingInt(this::getTransformerRank).reversed());
     }
 
     private Integer getTransformerRank(TransformerEntity transfomer) {
@@ -128,6 +126,33 @@ public class BattleBasicRulesServiceImpl implements BattleBasicRulesService {
     private Integer getOverallRating(TransformerEntity transformer) {
 	return transformer.getStrength() + transformer.getIntelligence() + transformer.getSpeed()
 		+ transformer.getEndurance() + transformer.getFirepower();
+    }
+
+    private List<TransformerEntity> removeFighters(List<TransformerEntity> autobots,
+	    List<TransformerEntity> decepticons) {
+	List<TransformerEntity> nonFightList = new ArrayList<>();
+
+	if (autobots.size() > decepticons.size()) {
+	    nonFightList.add(autobots.remove(autobots.size() - 1));
+	} else if (autobots.size() < decepticons.size()) {
+	    nonFightList.add(decepticons.remove(decepticons.size() - 1));
+	}
+	return nonFightList;
+    }
+
+    private List<String> getLosingTeamSurvivors(List<TransformerEntity> nonFightList, String winnerTeam) {
+	List<String> losingTeamSurvivors = new ArrayList<>();
+
+	if (winnerTeam != "Tie") {
+	    nonFightList.stream()
+		    .filter(transformer -> Team.getByAcronym(transformer.getTeam()) != (Team.getByName(winnerTeam)))
+		    .forEach(transformer -> {
+			losingTeamSurvivors.add(transformer.getName());
+		    });
+	}
+
+	return losingTeamSurvivors;
+
     }
 
 }

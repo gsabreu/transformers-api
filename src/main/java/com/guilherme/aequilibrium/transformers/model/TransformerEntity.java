@@ -73,9 +73,4 @@ public class TransformerEntity implements Serializable {
     @Column(name = "skill")
     private Integer skill;
 
-    public static Integer getOverallRating(Integer strength, Integer intelligence, Integer speed, Integer endurance,
-	    Integer rank, Integer courage, Integer firepower, Integer skill) {
-	return strength + intelligence + speed + endurance + rank + courage + firepower + skill;
-    }
-
 }

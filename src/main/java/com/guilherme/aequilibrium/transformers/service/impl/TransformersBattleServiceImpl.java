@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.guilherme.aequilibrium.transformers.model.TransformerEntity;
 import com.guilherme.aequilibrium.transformers.model.dto.TransformersBattleResponseDTO;
 import com.guilherme.aequilibrium.transformers.repository.TransformersRepository;
+import com.guilherme.aequilibrium.transformers.service.BattleBasicRulesService;
 import com.guilherme.aequilibrium.transformers.service.BattleSpecialRulesService;
 import com.guilherme.aequilibrium.transformers.service.TransformersBattleService;
 
@@ -20,6 +21,9 @@ public class TransformersBattleServiceImpl implements TransformersBattleService 
     @Autowired
     private BattleSpecialRulesService battleSpecialRulesService;
 
+    @Autowired
+    private BattleBasicRulesService battleBasicRulesService;
+
     @Override
     public TransformersBattleResponseDTO getTransfomersWinnerFromTheBattle(List<Long> transformersIds) {
 	List<TransformerEntity> transformers = transformersRepository.findAllById(transformersIds);
@@ -29,7 +33,7 @@ public class TransformersBattleServiceImpl implements TransformersBattleService 
 	    transformersBattleResponseDTO = battleSpecialRulesService.applyRules(transformers);
 
 	    if (transformersBattleResponseDTO != null) {
-
+		transformersBattleResponseDTO = battleBasicRulesService.applyRules(transformers);
 	    }
 	}
 

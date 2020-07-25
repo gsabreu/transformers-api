@@ -15,7 +15,7 @@ public enum Team {
 	this.name = name;
     }
 
-    public static Team getValue(String acronym) {
+    public static Team getByAcronym(String acronym) {
 	if (acronym.equalsIgnoreCase(AUTOBOTS.acronym)) {
 	    return AUTOBOTS;
 	} else if (acronym.equalsIgnoreCase(DECEPTICONS.acronym)) {
@@ -23,6 +23,16 @@ public enum Team {
 	}
 
 	throw new TeamNotFoundException(acronym);
+    }
+    
+    public static Team getByName(String name) {
+	if (name.equalsIgnoreCase(AUTOBOTS.name)) {
+	    return AUTOBOTS;
+	} else if (name.equalsIgnoreCase(DECEPTICONS.name)) {
+	    return DECEPTICONS;
+	}
+
+	throw new TeamNotFoundException(name);
     }
 
 }
