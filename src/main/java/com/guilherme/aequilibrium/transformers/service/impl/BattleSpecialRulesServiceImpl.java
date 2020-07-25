@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.guilherme.aequilibrium.transformers.model.Team;
 import com.guilherme.aequilibrium.transformers.model.TransformerEntity;
 import com.guilherme.aequilibrium.transformers.model.dto.TransformersBattleResponseDTO;
 import com.guilherme.aequilibrium.transformers.service.BattleSpecialRulesService;
@@ -17,7 +18,7 @@ public class BattleSpecialRulesServiceImpl implements BattleSpecialRulesService 
     private static final String PREDAKING = "Predaking";
 
     @Override
-    public TransformersBattleResponseDTO applySpecialRules(List<TransformerEntity> transformers) {
+    public TransformersBattleResponseDTO applyRules(List<TransformerEntity> transformers) {
 	Set<String> transformersSet = transformers.stream().map(transfomer -> transfomer.getName())
 		.collect(Collectors.toSet());
 	TransformersBattleResponseDTO response = null;
@@ -31,11 +32,11 @@ public class BattleSpecialRulesServiceImpl implements BattleSpecialRulesService 
 	}
 
 	else if (transformersSet.contains(OPTIMUS_PRIME) && !transformersSet.contains(PREDAKING)) {
-	    return TransformersBattleResponseDTO.builder().winnerTeam("A").build();
+	    return TransformersBattleResponseDTO.builder().winnerTeam(Team.AUTOBOTS.name).build();
 	}
 
 	else if (transformersSet.contains(PREDAKING) && !transformersSet.contains(OPTIMUS_PRIME)) {
-	    return TransformersBattleResponseDTO.builder().winnerTeam("D").build();
+	    return TransformersBattleResponseDTO.builder().winnerTeam(Team.DECEPTICONS.name).build();
 	}
 
 	return response;
