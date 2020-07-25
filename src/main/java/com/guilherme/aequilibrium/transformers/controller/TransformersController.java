@@ -19,7 +19,7 @@ import com.guilherme.aequilibrium.transformers.model.dto.TransformerDTO;
 import com.guilherme.aequilibrium.transformers.service.TransformersService;
 
 @RestController
-@RequestMapping
+@RequestMapping(path = "transformers")
 public class TransformersController {
 
     @Autowired
