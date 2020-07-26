@@ -102,6 +102,7 @@ $ mvn clean package
 
 ```bash
 $ cd project
+$ docker build -t transformers-api-1.0.0 .
 $ docker run -d -p 8080:8080 -t transformers-api-1.0.0
 ```
 
