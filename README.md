@@ -83,7 +83,7 @@ The output should be:
 
 #### Let's start the battle!
 
-![](https://media0.giphy.com/media/VeWllmR9zfaco/giphy.gif)
+![](https://64.media.tumblr.com/0eb97149d82b8e13d3d9f6c5b2795ca5/tumblr_mpy4lqT9RM1qmi47qo1_500.gif)
 
 
 
@@ -102,6 +102,7 @@ $ mvn clean package
 
 ```bash
 $ cd project
+$ docker build -t transformers-api-1.0.0 .
 $ docker run -d -p 8080:8080 -t transformers-api-1.0.0
 ```
 
