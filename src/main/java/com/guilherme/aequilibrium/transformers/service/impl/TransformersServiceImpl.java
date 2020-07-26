@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.guilherme.aequilibrium.transformers.model.Team;
 import com.guilherme.aequilibrium.transformers.model.TransformerEntity;
 import com.guilherme.aequilibrium.transformers.model.dto.TransformerDTO;
 import com.guilherme.aequilibrium.transformers.repository.TransformersRepository;
@@ -24,6 +25,7 @@ public class TransformersServiceImpl implements TransformersService {
     @Override
     public TransformerDTO createTransformer(TransformerDTO transformer) {
 	log.info("creating Transformer");
+	this.validateTeam(transformer.getTeam());
 	return this.convertTransformerDto(transformersRepository.save(this.convertEntity(transformer)));
     }
 
@@ -53,6 +55,10 @@ public class TransformersServiceImpl implements TransformersService {
 
     private TransformerEntity convertEntity(TransformerDTO dto) {
 	return new ObjectMapper().convertValue(dto, TransformerEntity.class);
+    }
+
+    private void validateTeam(String team) {
+	Team.getByAcronym(team);
     }
 
 }

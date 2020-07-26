@@ -38,7 +38,7 @@ public class TransformersServiceImplTest {
 	TransformerEntity transformerIdOne = TransformerEntity.builder().id(1L).name(NAME).team(Team.AUTOBOTS.acronym)
 		.build();
 
-	when(transformersRepository.save(TransformerEntity.builder().name(NAME).build()))
+	when(transformersRepository.save(TransformerEntity.builder().name(NAME).team(Team.AUTOBOTS.acronym).build()))
 		.thenReturn(TransformerEntity.builder().id(1L).name(NAME).build());
 
 	when(transformersRepository.save(transformerIdOne)).thenReturn(transformerIdOne);
@@ -48,7 +48,8 @@ public class TransformersServiceImplTest {
 
     @Test
     public void should_return_new_transfomers_when_createTransformer() {
-	TransformerDTO result = service.createTransformer(TransformerDTO.builder().name(NAME).build());
+	TransformerDTO result = service
+		.createTransformer(TransformerDTO.builder().name(NAME).team(Team.AUTOBOTS.acronym).build());
 
 	assertNotNull(result);
 	assertThat(result.getId()).isEqualTo(1L);

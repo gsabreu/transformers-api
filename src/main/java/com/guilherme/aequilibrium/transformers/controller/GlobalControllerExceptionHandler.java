@@ -1,6 +1,5 @@
 package com.guilherme.aequilibrium.transformers.controller;
 
-import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +14,6 @@ import com.guilherme.aequilibrium.transformers.model.dto.ErrorModelDTO;
 
 @RestControllerAdvice
 public class GlobalControllerExceptionHandler {
-
-    @ExceptionHandler(ConversionFailedException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ErrorModelDTO> handleConnversion(RuntimeException ex) {
-	return new ResponseEntity<>(new ErrorModelDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage()),
-		HttpStatus.BAD_REQUEST);
-    }
 
     @ExceptionHandler(TeamNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
