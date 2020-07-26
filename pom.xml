@@ -13,7 +13,7 @@
 	<artifactId>transformers-api</artifactId>
 	<version>1.0.0</version>
 	<name>transformers-api</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Aequilibrium java backend test</description>
 
 	<properties>
 		<java.version>1.8</java.version>
