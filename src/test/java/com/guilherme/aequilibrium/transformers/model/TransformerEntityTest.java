@@ -7,23 +7,33 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.guilherme.aequilibrium.transformers.model.dto.TransformerDTO;
-
-public class TransformerDTOTest {
+public class TransformerEntityTest {
 
     private final static String NAME = "OPTIMIUS_PRIME";
     private final static String TEAM = Team.AUTOBOTS.acronym;
 
-    private TransformerDTO modelWithArgs;
-    private TransformerDTO modelWithoutArgs;
-    private TransformerDTO modelWithBuilder;
+    private TransformerEntity modelWithArgs;
+    private TransformerEntity modelWithoutArgs;
+    private TransformerEntity modelWithBuilder;
 
     @Before
     public void setup() {
-	modelWithArgs = new TransformerDTO(1L, NAME, TEAM, 1, 1, 1, 1, 1, 1, 1, 1);
-	modelWithoutArgs = new TransformerDTO();
-	modelWithBuilder = TransformerDTO.builder().id(1L).name(NAME).team(TEAM).strength(1).intelligence(1).speed(1)
-		.endurance(1).rank(1).courage(1).firepower(1).skill(1).build();
+	modelWithArgs = new TransformerEntity(1L, NAME, TEAM, 1, 1, 1, 1, 1, 1, 1, 1);
+	modelWithoutArgs = new TransformerEntity();
+	modelWithBuilder = TransformerEntity
+		.builder()
+		.id(1L)
+		.name(NAME)
+		.team(TEAM)
+		.strength(1)
+		.intelligence(1)
+		.speed(1)
+		.endurance(1)
+		.rank(1)
+		.courage(1)
+		.firepower(1)
+		.skill(1)
+		.build();
     }
 
     @Test

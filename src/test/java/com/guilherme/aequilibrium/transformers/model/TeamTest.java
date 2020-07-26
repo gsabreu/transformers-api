@@ -1,4 +1,4 @@
-package com.guilherme.aequilibrium.transformers.service.model;
+package com.guilherme.aequilibrium.transformers.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
