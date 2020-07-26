@@ -81,6 +81,12 @@ The output should be:
 
 > Survivors from the losing team (Autobots): Hubcap
 
+#### Let's start the battle!
+
+![](https://media0.giphy.com/media/VeWllmR9zfaco/giphy.gif)
+
+
+
 ## Build Project
 
 The first step is build project to create .jar
