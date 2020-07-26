@@ -31,7 +31,7 @@ public class TransformerDTO implements Serializable {
 
     private Long id;
 
-    @NotBlank
+    @NotBlank()
     private String name;
 
     @NotBlank

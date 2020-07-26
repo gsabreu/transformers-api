@@ -2,6 +2,8 @@ package com.guilherme.aequilibrium.transformers.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,7 @@ public class TransformersController {
     @Operation(summary = "Create Transformers")
     @PostMapping
     public ResponseEntity<TransformerDTO> createTransformer(
-	    @RequestBody(required = true) TransformerDTO transformerDto) {
+	    @Valid @RequestBody(required = true) TransformerDTO transformerDto) {
 
 	return new ResponseEntity<>(transformersService.createTransformer(transformerDto), HttpStatus.CREATED);
     }
