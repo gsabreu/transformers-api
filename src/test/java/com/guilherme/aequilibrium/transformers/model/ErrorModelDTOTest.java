@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.guilherme.aequilibrium.transformers.model.dto.ErrorModelDTO;
 
-public class ExceptionModelDTOTest {
+public class ErrorModelDTOTest {
 
     private ErrorModelDTO modelWithArgs;
 
