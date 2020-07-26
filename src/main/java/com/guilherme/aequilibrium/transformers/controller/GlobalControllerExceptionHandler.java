@@ -37,8 +37,6 @@ public class GlobalControllerExceptionHandler {
 		HttpStatus.NOT_FOUND);
     }
 
-    
-    //TODO: improve messages
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ErrorModelDTO> handleValidation(MethodArgumentNotValidException ex) {
