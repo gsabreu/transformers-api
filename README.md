@@ -27,8 +27,12 @@ Docker is running on 8080 port.
 
 ## Usage
 
-[Swagger](localhost:8080/transformers-api/swagger-ui.html) available while the docker is running
+Swagger is available while the docker is running
+
+```sh
 localhost:8080/transformers-api/swagger-ui.html
+```
+
 
 
 ## Contributing
