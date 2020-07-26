@@ -11,29 +11,29 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.guilherme.aequilibrium.transformers.exception.TeamNotFoundException;
-import com.guilherme.aequilibrium.transformers.model.dto.ExceptionModelDTO;
+import com.guilherme.aequilibrium.transformers.model.dto.ErrorModelDTO;
 
 @RestControllerAdvice
 public class GlobalControllerExceptionHandler {
 
     @ExceptionHandler(ConversionFailedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ExceptionModelDTO> handleConnversion(RuntimeException ex) {
-	return new ResponseEntity<>(new ExceptionModelDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage()),
+    public ResponseEntity<ErrorModelDTO> handleConnversion(RuntimeException ex) {
+	return new ResponseEntity<>(new ErrorModelDTO(HttpStatus.BAD_REQUEST.value(), ex.getMessage()),
 		HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(TeamNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ExceptionModelDTO> handleTeamNotFound(RuntimeException ex) {
-	return new ResponseEntity<>(new ExceptionModelDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage()),
+    public ResponseEntity<ErrorModelDTO> handleTeamNotFound(RuntimeException ex) {
+	return new ResponseEntity<>(new ErrorModelDTO(HttpStatus.NOT_FOUND.value(), ex.getMessage()),
 		HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(EmptyResultDataAccessException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ExceptionModelDTO> handleEmptyResultDataAccess(RuntimeException ex) {
-	return new ResponseEntity<>(new ExceptionModelDTO(HttpStatus.NOT_FOUND.value(), "Transformers not found"),
+    public ResponseEntity<ErrorModelDTO> handleEmptyResultDataAccess(RuntimeException ex) {
+	return new ResponseEntity<>(new ErrorModelDTO(HttpStatus.NOT_FOUND.value(), "Transformers not found"),
 		HttpStatus.NOT_FOUND);
     }
 
@@ -41,15 +41,15 @@ public class GlobalControllerExceptionHandler {
     //TODO: improve messages
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<ExceptionModelDTO> handleValidation(MethodArgumentNotValidException ex) {
-	return new ResponseEntity<>(new ExceptionModelDTO(HttpStatus.BAD_REQUEST.value(),
+    public ResponseEntity<ErrorModelDTO> handleValidation(MethodArgumentNotValidException ex) {
+	return new ResponseEntity<>(new ErrorModelDTO(HttpStatus.BAD_REQUEST.value(),
 		ex.getBindingResult().getAllErrors().get(0).getDefaultMessage()), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-    public ResponseEntity<ExceptionModelDTO> handleValidation(HttpRequestMethodNotSupportedException ex) {
-	return new ResponseEntity<>(new ExceptionModelDTO(HttpStatus.METHOD_NOT_ALLOWED.value(), ex.getMessage()),
+    public ResponseEntity<ErrorModelDTO> handleValidation(HttpRequestMethodNotSupportedException ex) {
+	return new ResponseEntity<>(new ErrorModelDTO(HttpStatus.METHOD_NOT_ALLOWED.value(), ex.getMessage()),
 		HttpStatus.METHOD_NOT_ALLOWED);
     }
 

@@ -1,5 +1,7 @@
 package com.guilherme.aequilibrium.transformers.controller;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -90,8 +92,10 @@ public class TransformersControllerTest {
     @Test
     public void should_return_sucessfull_dto_when_deleteTransformer() throws Exception {
 
-	this.mockMvc.perform(delete(PATH).contentType(APPLICATION_JSON_UTF8).contextPath("/1")).andDo(print())
+	this.mockMvc.perform(delete(PATH + "/1").contentType(APPLICATION_JSON_UTF8)).andDo(print())
 		.andExpect(status().is2xxSuccessful());
+	
+	verify(transformersService, times(1)).deleteTransformer((1L));
 
     }
 
