@@ -1,7 +1,5 @@
 package com.guilherme.aequilibrium.transformers.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.guilherme.aequilibrium.transformers.model.dto.BattleRequestDTO;
 import com.guilherme.aequilibrium.transformers.model.dto.TransformersBattleResponseDTO;
 import com.guilherme.aequilibrium.transformers.service.TransformersBattleService;
 
@@ -25,8 +24,8 @@ public class TransformersBattleController {
     @Operation(summary = "Starts Tranformers battle by Transformers id list")
     @PostMapping
     public ResponseEntity<TransformersBattleResponseDTO> transformersBattle(
-	    @RequestBody(required = true) List<Long> transformersIds) {
-	TransformersBattleResponseDTO response = transformersBattleService.getTeamWinner(transformersIds);
+	    @RequestBody(required = true) BattleRequestDTO battleRequestDTO) {
+	TransformersBattleResponseDTO response = transformersBattleService.getTeamWinner(battleRequestDTO.getTransformersIds());
 	return response != null ? new ResponseEntity<>(response, HttpStatus.OK)
 		: new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

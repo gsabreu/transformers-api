@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.guilherme.aequilibrium.transformers.model.Team;
+import com.guilherme.aequilibrium.transformers.model.dto.BattleRequestDTO;
 import com.guilherme.aequilibrium.transformers.model.dto.TransformersBattleResponseDTO;
 import com.guilherme.aequilibrium.transformers.service.TransformersBattleService;
 
@@ -52,7 +53,10 @@ public class TransformersBattleControllerTest {
 	ObjectMapper mapper = new ObjectMapper();
 	mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
 	ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-	String requestJson = ow.writeValueAsString(Arrays.asList(1L, 2L));
+	String requestJson = ow.writeValueAsString(BattleRequestDTO
+		.builder()
+		.transformersIds(Arrays.asList(1L, 2L))
+		.build());
 
 	this.mockMvc.perform(post(PATH).contentType(APPLICATION_JSON_UTF8).content(requestJson)).andDo(print())
 		.andExpect(status().is2xxSuccessful());
@@ -64,7 +68,10 @@ public class TransformersBattleControllerTest {
 	ObjectMapper mapper = new ObjectMapper();
 	mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
 	ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-	String requestJson = ow.writeValueAsString(Arrays.asList(3L, 4L));
+	String requestJson = ow.writeValueAsString(BattleRequestDTO
+		.builder()
+		.transformersIds(Arrays.asList(3L, 4L))
+		.build());
 
 	this.mockMvc.perform(post(PATH).contentType(APPLICATION_JSON_UTF8).content(requestJson)).andDo(print())
 		.andExpect(status().is2xxSuccessful());
