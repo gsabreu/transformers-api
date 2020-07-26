@@ -1,6 +1,6 @@
 package com.guilherme.aequilibrium.transformers.model;
 
-import com.guilherme.aequilibrium.transformers.handler.TeamNotFoundException;
+import com.guilherme.aequilibrium.transformers.exception.TeamNotFoundException;
 
 public enum Team {
 

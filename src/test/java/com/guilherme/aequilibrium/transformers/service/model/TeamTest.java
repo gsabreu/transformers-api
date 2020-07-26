@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.guilherme.aequilibrium.transformers.handler.TeamNotFoundException;
+import com.guilherme.aequilibrium.transformers.exception.TeamNotFoundException;
 import com.guilherme.aequilibrium.transformers.model.Team;
 
 @RunWith(SpringJUnit4ClassRunner.class)

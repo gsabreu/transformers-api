@@ -1,4 +1,4 @@
-package com.guilherme.aequilibrium.transformers.handler;
+package com.guilherme.aequilibrium.transformers.exception;
 
 public class TeamNotFoundException extends RuntimeException {
 
