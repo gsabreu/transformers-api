@@ -6,6 +6,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.context.annotation.PropertySource;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -31,7 +33,7 @@ public class TransformerDTO implements Serializable {
 
     private Long id;
 
-    @NotBlank()
+    @NotBlank
     private String name;
 
     @NotBlank
