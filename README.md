@@ -28,6 +28,7 @@ Docker is running on 8080 port.
 ## Usage
 
 [Swagger](localhost:8080/transformers-api/swagger-ui.html) available while the docker is running
+localhost:8080/transformers-api/swagger-ui.html
 
 
 ## Contributing
@@ -35,5 +36,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+
