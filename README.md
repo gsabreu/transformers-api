@@ -111,7 +111,7 @@ Docker is running on 8080 port.
 ## Usage
 
 
-Swagger available while the docker is running
+Available while the docker is running
 
 
 [![View in Swagger](https://raw.githubusercontent.com/jessemillar/view-in-swagger-button/03073fe128d35adfcad35b03b853aa76cfdd9002/button.svg)](http://localhost:8080/transformers-api/swagger-ui/index.html?configUrl=/transformers-api/api-docs/swagger-config#/)
