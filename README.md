@@ -113,9 +113,10 @@ Docker is running on 8080 port.
 
 Swagger available while the docker is running
 
-```sh
-localhost:8080/transformers-api/swagger-ui.html
-```
 
+[![View in Swagger](https://raw.githubusercontent.com/jessemillar/view-in-swagger-button/03073fe128d35adfcad35b03b853aa76cfdd9002/button.svg)](localhost:8080/transformers-api/swagger-ui.html)
 
+or 
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/bfe430ea7efd0b50461e)
 
