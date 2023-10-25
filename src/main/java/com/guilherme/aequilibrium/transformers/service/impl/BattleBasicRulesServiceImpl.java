@@ -51,10 +51,8 @@ public class BattleBasicRulesServiceImpl implements BattleBasicRulesService {
     private void oneOnOneFight(TransformerEntity autobot, TransformerEntity decepticon) {
 	if (this.hasRunAwayOpponent(autobot, decepticon)) {
 	    numberOfBattles++;
-	    return;
 	} else if (this.hasSkillWinner(autobot, decepticon)) {
 	    numberOfBattles++;
-	    return;
 	} else {
 	    this.getOverallRateWinner(autobot, decepticon);
 	    numberOfBattles++;
