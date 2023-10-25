@@ -143,12 +143,10 @@ public class BattleBasicRulesServiceImpl implements BattleBasicRulesService {
     private List<String> getLosingTeamSurvivors(List<TransformerEntity> nonFightList, String winnerTeam) {
 	List<String> losingTeamSurvivors = new ArrayList<>();
 
-	if (winnerTeam != "Tie") {
+	if (!winnerTeam.equals("Tie")) {
 	    nonFightList.stream()
 		    .filter(transformer -> Team.getByAcronym(transformer.getTeam()) != (Team.getByName(winnerTeam)))
-		    .forEach(transformer -> {
-			losingTeamSurvivors.add(transformer.getName());
-		    });
+		    .forEach(transformer -> losingTeamSurvivors.add(transformer.getName()));
 	}
 
 	return losingTeamSurvivors;

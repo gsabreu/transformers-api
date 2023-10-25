@@ -19,7 +19,7 @@ public class BattleSpecialRulesServiceImpl implements BattleSpecialRulesService 
 
     @Override
     public TransformersBattleResponseDTO applyRules(List<TransformerEntity> transformers) {
-	Set<String> transformersSet = transformers.stream().map(transfomer -> transfomer.getName())
+	Set<String> transformersSet = transformers.stream().map(TransformerEntity::getName)
 		.collect(Collectors.toSet());
 	TransformersBattleResponseDTO response = null;
 
